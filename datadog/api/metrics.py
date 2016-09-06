@@ -1,10 +1,13 @@
 # stdlib
+import logging
 import time
 from numbers import Number
 
 # datadog
 from datadog.api.exceptions import ApiError
 from datadog.api.resources import SearchableAPIResource, SendableAPIResource
+
+log = logging.getLogger('dd.datadogpy')
 
 
 class Metric(SearchableAPIResource, SendableAPIResource):
@@ -117,6 +120,8 @@ class Metric(SearchableAPIResource, SendableAPIResource):
         except KeyError:
             raise KeyError("'points' parameter is required")
 
+        log.debug('send metrics')
+        log.debug(metrics_dict)
         return super(Metric, cls).send(attach_host_name=True, **metrics_dict)
 
     @classmethod
