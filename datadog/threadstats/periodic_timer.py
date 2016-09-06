@@ -35,7 +35,6 @@ class PeriodicTimer(Thread):
     def end(self):
         if self._is_alive():
             self.finished.set()
-            self.finished.join()
 
     def run(self):
         while True:
